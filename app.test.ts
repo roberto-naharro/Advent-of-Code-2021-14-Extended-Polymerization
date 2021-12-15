@@ -78,6 +78,7 @@ describe("app test suite", () => {
     ];
     it("should do the correct expansion", () => {
       const expandTest = expandPolymerNTimes(rules);
+      expect(expandTest(0)("NNCB")).toBeUndefined();
       expect(expandTest(2)("NNCB")).toBe("NBCCNBBBCBHCB");
       expect(expandTest(3)("NNCB")).toBe("NBBBCNCCNBBNBNBBCHBHHBCHB");
       expect(expandTest(4)("NNCB")).toBe(

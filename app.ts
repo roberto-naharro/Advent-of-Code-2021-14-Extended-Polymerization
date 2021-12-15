@@ -39,16 +39,11 @@ export const expandPolymer = (rules: ExpandRule[]) =>
     joinPolymer
   );
 
-export const repeatFn =
-  <T>(times: number, fn: (arg: T) => T) =>
-  (arg: T) => {
-    if (times <= 0) return undefined;
-    let acc = fn(arg);
-    for (let i = 1; i < times; i++) {
-      acc = fn(acc);
-    }
-    return acc;
-  };
+export const repeatFn = <T>(times: number, fn: (arg: T) => T) =>
+  times <= 0
+    ? () => undefined
+    : //@ts-ignore
+      R.pipe(...R.repeat(fn, times));
 
 export const expandPolymerNTimes = (rules: ExpandRule[]) => (times: number) =>
   repeatFn(times, expandPolymer(rules));
